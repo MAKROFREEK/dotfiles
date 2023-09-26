@@ -25,3 +25,10 @@ makepkg -si
 cd
 rm -rf /tmp/yay
 yay --version
+
+# install plymouth and apply configurations
+yay -S plymouth 
+yay -S plymouth-theme-arch-charge-gdm-spinner
+plymouth-set-default-theme -l
+plymouth-set-default-theme -R arch-charge-gdm
+
