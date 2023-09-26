@@ -1,3 +1,5 @@
+
+
 #!/bin/bash
 
 # check if running as sudo
@@ -31,4 +33,6 @@ yay -S plymouth
 yay -S plymouth-theme-arch-charge-gdm-spinner
 plymouth-set-default-theme -l
 plymouth-set-default-theme -R arch-charge-gdm
+systemctl disable sddm.service
+system enable sddm-plymouth.service
 
