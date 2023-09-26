@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<application-state>
+  <context id="">
+    <application id="kitty.desktop" score="9772" last-seen="1695751738"/>
+    <application id="org.gnome.tweaks.desktop" score="57" last-seen="1695598543"/>
+    <application id="org.gnome.Shell.Extensions.desktop" score="23" last-seen="1695342277"/>
+    <application id="org.gnome.Characters.desktop" score="0" last-seen="1695333509"/>
+    <application id="org.gnome.clocks.desktop" score="0" last-seen="1695258028"/>
+    <application id="org.gnome.Calendar.desktop" score="0" last-seen="1695335961"/>
+    <application id="org.gnome.eog.desktop" score="1" last-seen="1695342391"/>
+    <application id="org.gnome.Nautilus.desktop" score="1005" last-seen="1695657399"/>
+    <application id="ocs-url.desktop" score="0" last-seen="1695257443"/>
+    <application id="firefox.desktop" score="2062" last-seen="1695750811"/>
+    <application id="org.gnome.baobab.desktop" score="146" last-seen="1695653815"/>
+    <application id="idea.desktop" score="0" last-seen="1695387588"/>
+    <application id="org.gnome.Music.desktop" score="0" last-seen="1695337041"/>
+    <application id="code.desktop" score="78" last-seen="1695652326"/>
+    <application id="io.github.realmazharhussain.GdmSettings.desktop" score="2" last-seen="1695597690"/>
+    <application id="org.gnome.Extensions.desktop" score="8" last-seen="1695385310"/>
+    <application id="org.gnome.DiskUtility.desktop" score="15" last-seen="1695420227"/>
+    <application id="org.gnome.Settings.desktop" score="99" last-seen="1695597728"/>
+  </context>
+</application-state>
