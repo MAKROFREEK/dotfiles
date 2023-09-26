@@ -8,7 +8,6 @@ Welcome to my Dotfiles Post-Installation Script repository! This script is my tr
 - [Features](#features)
 - [Usage](#usage)
 - [Scripts](#scripts)
-- [Contributing](#contributing)
 
 ## Features
 
@@ -20,26 +19,28 @@ Welcome to my Dotfiles Post-Installation Script repository! This script is my tr
 
 ## Usage
 
-1. Clone this repository to your local machine:
+1. Clone this repository to your local machine: (Feel free to change dots to whatever you want, I found this to be easiest to remember)
 
    ```bash
-   git clone https://github.com/yourusername/dotfiles-post-install.git
 
-    Navigate to the post-install-scripts directory:
-
-   cd dotfiles-post-install/post-install-scripts
-
-   sudo bash run.sh
-
+   git clone --bare https://github.com/MAKROFREEK/dotfiles.git ~/.dotfiles
+   alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+   dots config status.showUntrackedFiles no
+   dots checkout
+   
+2. Example of how to use after installing
+   ```bash
+   dots status
+   dots add .vimrc
+   dots commit -m "Add vimrc"
+   dots add .bashrc
+   dots commit -m "Add bashrc"
+   dots push
 
 ## Scripts
 
     get-packages.sh: Installs essential packages and dependencies.
-    gnome-settings.sh: Configures GNOME desktop settings.
-    install-timer.sh: Sets up timers for specific tasks.
-    packages.x86_64: Lists the packages to be installed.
+    gnome-settings.sh: Configures GNOME desktop settings in case dots get it wrong.
+    install-timer.sh: Installs custom version of simple-timer-extension on gnome-extensions.
 
-## Contributing
-
-Contributions are welcome! If you have any improvements or additional scripts to add, please fork this repository and create a pull request.
 
