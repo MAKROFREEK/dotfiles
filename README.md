@@ -29,7 +29,7 @@ Welcome to my Dotfiles Post-Installation Script repository! This script is my tr
    dots checkout
    
 2. Example of how to use after installing
-   ```bash
+   ```git
    dots status
    dots add .vimrc
    dots commit -m "Add vimrc"
