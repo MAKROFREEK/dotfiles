@@ -10,13 +10,12 @@ fi
 
 # copy folders
 cp -r .config ~/.config
+
 # copy background
 cp -r .local ~/.local
+
 # copy documents
 cp -r documents ~/Documents
-# install packages
-bash post-install-scripts/install-timer.sh
-bash post-install-scripts/get-packages.sh
 
 # install yay
 pacman -Syu
@@ -27,6 +26,20 @@ makepkg -si
 cd
 rm -rf /tmp/yay
 yay --version
+
+# copy grub
+git clone https://github.com/Patato777/dotfiles.git ~/virtuaverse-grub
+cd ~/virtuaverse-grub
+cd grub
+bash install_script_grub.sh
+cd rm -r ~/virtuaverse-grub
+# copy sddm
+yay -S 
+# copy plymouth
+yay -S 
+# install packages
+bash post-install-scripts/install-timer.sh
+bash post-install-scripts/get-packages.sh
 
 # install plymouth and apply configurations
 yay -S plymouth 
