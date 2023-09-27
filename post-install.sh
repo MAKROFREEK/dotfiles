@@ -3,22 +3,25 @@
 #!/bin/bash
 
 # check if running as sudo
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root (sudo)." 
-    exit 1
-fi
+#if [[ $EUID -ne 0 ]]; then
+#    echo "This script must be run as root (sudo)." 
+#    exit 1
+#fi
 
 # copy folders
-cp -r .config ~/.config
+cp -r dotfiles/.config/* ~/.config
 
 # copy background
-cp -r .local ~/.local
+cp -r dotfiles/.local/* ~/.local
 
 # copy documents
-cp -r documents ~/Documents
+cp -r dotfiles/documents/* ~/Documents
+
+# copy themes 
+mkdir ~/.themes
+cp -r dotfiles/.themes/* ~/.themes
 
 # install yay
-pacman -Syu
 mkdir /tmp/yay
 cd /tmp/yay
 curl -OJ 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay'
@@ -46,6 +49,4 @@ yay -S plymouth
 yay -S plymouth-theme-arch-charge-gdm-spinner
 plymouth-set-default-theme -l
 plymouth-set-default-theme -R arch-charge-gdm
-systemctl disable sddm.service
-system enable sddm-plymouth.service
 
