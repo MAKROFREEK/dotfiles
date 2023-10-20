@@ -1,0 +1,177 @@
+{
+    "layer": "top",
+    "height": 30,
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/sensor", "bluetooth", "custom/timer", "idle_inhibitor", "network", "pulseaudio", "backlight", "battery" , "custom/power", "sway/mode"], "sway/workspaces": {
+        "sort-by-name": false,
+        "format": "{icon}",
+        "format-icons": {
+        "1": "",
+        "2": "",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "urgent": "",
+        "active": "",
+        "default": "",
+        "focused": "",
+    },  
+    "on-click": "activate"
+  },
+    "sway/mode": {
+        // "format": "<span style=\"bold\">{}</span"
+	"format": "{}",
+    	"max-length": 50
+    },
+    "idle_inhibitor": {
+	"tooltip-format-activated": "Activated",
+	"tooltip-format-deactivated": "Deactivated",
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶",
+            "deactivated": "󰾪"
+        }
+    },
+
+    	
+        "clock": {
+        "format": "{:%I:%M %p}",
+        "format-alt": "{:%A, %B %d, %Y %I:%M %p}",
+	"tooltip-format": "<span font='Ubuntu Bold 11'><small>{:%d %B}</small>\n<tt><small>{calendar}</small></tt></span>",
+        "calendar": {
+                    "mode"          : "week",
+                    "mode-mon-col"  : 3,
+                    "on-scroll"     : 1,
+                    "on-click-right": "mode",
+                    "format": {
+                              "months":     "<span color='#50fa7b'><b>{}</b></span>",
+                              "days":       "<span color='#f8f8f2'><b>{}</b></span>",
+                              "weekdays":   "<span color='#8be9fd'><b>{}</b></span>",
+                              "today":      "<span color='#ff79c6'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-click-forward": "tz_up",
+                    "on-click-backward": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    },
+    "battery": {
+    	
+        "format": "{icon}",
+	    "on-click": "tlpui",
+        "format-icons": ["󰂎  ", "󰁺  ", "󰁻  ", "󰁼  ", "󰁽  ", "󰁾  ", "󰁿  ", "󰂀  ", "󰂁  ", "󰁹  "],
+        "format-time": "{H}h{M}m",
+        "format-charging": "{icon}",
+        "format-full": "{icon}",
+        "interval": 1,
+        "states": {
+            "good": 80,
+            "warning": 35,
+            "critical": 15
+        },
+        "tooltip-format": "Remaining: {time} 
+Power draw: {power}W 
+Capacity: {capacity}%",
+    },
+    "upower": {
+     "icon-size": 20,
+     "hide-if-empty": true,
+     "tooltip": true,
+     "tooltip-spacing": 20,
+     "tooltip-padding": 4
+    },
+
+    "network": {
+    	"on-click": "networkmanager_dmenu",
+	"interval": 1,
+    	"format": "{ifname}",
+	"format-ethernet": "󰈀",
+        "format-wifi": "",
+        "format-linked": "󰈂",
+       	"format-disconnected": "󱚼",
+        //"format-alt": "{essid} {bandwidthDownBytes} {bandwidthUpBytes}",
+        "tooltip-format": "{essid}: {signalStrength}
+{ifname}:	{ipaddr}/{cidr}
+Up:   {bandwidthUpBytes} Freq: {frequency}
+Down: {bandwidthDownBytes} Dbm: {signaldBm}"
+
+    },
+
+    // 󰊠
+    "pulseaudio": {
+    	"tooltip-format": "Volume: {volume}%",
+        "scroll-step": 1,
+        "format": "{icon}",
+        "format-bluetooth": " {icon}",
+        "format-bluetooth-muted": " 󰖁 {icon}",
+        "format-muted": "󰖁",
+        "format-source": "",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [" ", " ", " 󰕾"]
+            //"default": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+        },
+        "on-click": "pavucontrol"
+    },
+    "bluetooth": {
+	// "controller": "controller1", // specify the alias of the controller if there are more than 1 on the system
+    "on-click": "blueman-manager",
+	"format": " 󰂯  ",
+	"format-disabled": " 󰂲  ", // an empty format will hide the module
+	"format-connected": " {num_connections",
+	"tooltip-format": "{controller_alias}\t
+{controller_address}",
+	"tooltip-format-connected": "{controller_alias}\t
+{controller_address}\n\n{device_enumerate}",
+	"tooltip-format-enumerate-connected": "{device_alias}\t
+{device_address}"
+    },
+    "backlight": {
+    	"tooltip-format": "Brightness: {percentage}%",
+    	"scroll-step": 1,
+    	"device": "intel_backlight",
+    	"format": "{icon} ",
+    	"format-icons": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+	//"format-alt": "{icon} {percentage}%",
+	//"on-click": "power manager"
+    },
+    "custom/timer": {
+	"format": "  󱎫   ",
+	"tooltip": "false",
+    "class": "timer",
+	"tooltip-format": "",
+	"on-click": "bash ~/.config/sway/timer.sh"
+    },
+    "custom/sensor": {
+  	"format": "",
+  	"exec": "bash ~/.config/rofi/scripts/makrofreek/sensors.sh",
+  	"return-type": "json",
+	//"tooltip": "$tooltip",
+  	"interval": 500
+    },
+
+
+    "custom/power": {
+        "on-click": "bash ~/.config/rofi/scripts/powermenu",
+        "interval": 5,
+        "return-type": "custom/button",
+        "format": " "
+    }
+
+}
+

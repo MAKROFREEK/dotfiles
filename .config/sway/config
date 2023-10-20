@@ -1,0 +1,284 @@
+# MAKROFREEK SWAY CONFIG
+
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Defaults
+set $term kitty
+set $file thunar
+
+# Auto startup
+exec_always {
+    killall tlp
+	killall redshift 
+    killall autotiling
+	killall dunst
+	dunst
+	tlp
+    swaymsg opacity 1
+    redshift
+    autotiling
+}
+set $cursor_size 28
+
+# GTK
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set org.gnome.desktop.interface gtk-theme 'Dracula'
+    gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+    gsettings set org.gnome.desktop.interface text-scaling-factor 1.3
+    gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+}
+
+### Appearance
+
+# class                 border  bground text    indicator child_border
+client.focused          #ff79c6 #ff79c6 #F8F8F2 #ff79c6   #ff79c6 
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #ff5555 #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #FF5555   #282A36
+client.background       #F8F8F2 #F8F8F2 #282A36 #F8F8F2   #F8F8F2
+
+# bindsym $mod+Shift+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+
+# Opacity
+set $opacity 1
+for_window [class=".*"] opacity $opacity
+for_window [app_id=".*"] opacity $opacity
+
+# window corner radius in px
+corner_radius 12
+
+gaps inner 20
+gaps outer 8
+
+# Window background blur
+blur off
+blur_xray off
+blur_passes 2
+blur_radius 5
+
+shadows on
+shadows_on_csd off
+shadow_blur_radius 20
+shadow_color #0000007F
+
+# inactive window fade amount. 0.0 = no dimming, 1.0 = fully dimmed
+default_dim_inactive 0.0
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #900000FF
+
+# Move minimized windows into Scratchpad (enable|disable)
+scratchpad_minimize disable
+
+# Border
+default_border pixel 5
+default_floating_border pixel 5
+
+### Output configuration
+#
+# Set a default wallpaper
+output * bg ~/Pictures/Wallpapers/PixlCastle.png fill
+# Backgound randomize script
+# exec bash '~/.config/scripts/bg-swap.sh' ~/Pictures/Wallpapers 300 
+
+
+### Idle configuration
+# Logout after 5 mins, screen off after 2m30sec
+exec swayidle -w \
+	    timeout 300 'exec systemctl suspend, mode "default"' \
+
+# Lock Screen
+bindsym $mod+x exec gtklock
+
+# exit mode
+bindsym $mod+Shift+0 exec ~/.config/rofi/scripts/powermenu
+
+set $exit "[s]leep  [p]oweroff  [r]eboot  [l]ogout [c]ancel"
+mode $exit {
+    bindsym --to-code {
+        s exec systemctl suspend, mode "default"
+        p exec systemctl poweroff
+        r exec systemctl reboot
+        l exec swaymsg exit
+        c mode "default"
+        Escape mode "default"
+    }
+}
+
+bindsym --to-code $mod+0 mode $exit
+
+### Key bindings
+# Basics:
+
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+q kill
+
+    # Start your file manager
+    bindsym $mod+e exec $file
+
+    # Start your launcher
+    bindsym $mod+d exec bash ~/.config/rofi/scripts/launcher
+    bindsym $mod+Shift+d exec bash ~/.config/rofi/scripts/runner
+
+    # Start network manager
+    bindsym $mod+n exec networkmanager_dmenu
+
+    # Take a screenshot of the whole screen
+    bindsym $mod+s exec grim && grim | wl-copy && notify-send "screenshot taken" && $camera_shutter
+
+    # Take a screenshot of region
+    bindsym $mod+Shift+s exec grim -g "$(slurp -d)" - | wl-copy && notify-send "screenshot taken" && $camera_shutter
+
+    # Take a screenshot of current window
+    bindsym $mod+Alt+s exec exec grim -g "$(slurp -d)" - | wl-copy && notify-send "screenshot taken" && $camera_shutter
+
+    # Pick a color from the screen
+    bindsym $mod+c exec grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | tail -n 1 | cut -d ' ' -f 4 | wl-copy && notify-send "Copied color" && $screenshot
+    # Run timer 
+    bindsym $mod+t exec bash ~/.config/scripts/timer.sh
+
+    # Run calculator
+    bindsym $mod+Shift+c exec bash ~/.config/scripts/calculator.sh
+
+    # System Sounds
+    set $bell2 paplay '/usr/share/sounds/freedesktop/stereo/dialog-information.oga'
+    set $attention paplay '/usr/share/sounds/freedesktop/stereo/window-attention.oga'
+    set $bell paplay '/usr/share/sounds/freedesktop/stereo/bell.oga'
+    set $device_removed paplay '/usr/share/sounds/freedesktop/stereo/device-removed.oga'
+    set $device_added paplay '/usr/share/sounds/freedesktop/stereo/device-added.oga'
+    set $message paplay '/usr/share/sounds/freedesktop/stereo/message.oga'
+    set $camera_shutter paplay '/usr/share/sounds/freedesktop/stereo/camera-shutter.oga'
+    set $volume_changed_sound paplay '/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga'
+
+    # Media Keys
+    
+    # Audio
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $volume_changed_sound
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2% && $volume_changed_sound
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% && $volume_changed_sound
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+    # Brightness
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+ && $bell2
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%- && $bell2
+    
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
+
+# Moving around:
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2  
+    bindsym $mod+3 workspace number 3  
+    bindsym $mod+4 workspace number 4  
+    bindsym $mod+5 workspace number 5  
+    bindsym $mod+6 workspace number 6  
+    bindsym $mod+7 workspace number 7  
+    bindsym $mod+8 workspace number 8  
+    bindsym $mod+9 workspace number 9  
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1, workspace 1
+    bindsym $mod+Shift+2 move container to workspace number 2, workspace 2
+    bindsym $mod+Shift+3 move container to workspace number 3, workspace 3
+    bindsym $mod+Shift+4 move container to workspace number 4, workspace 4
+    bindsym $mod+Shift+5 move container to workspace number 5, workspace 5
+    bindsym $mod+Shift+6 move container to workspace number 6, workspace 6
+    bindsym $mod+Shift+7 move container to workspace number 7, workspace 7
+    bindsym $mod+Shift+8 move container to workspace number 8, workspace 8
+    bindsym $mod+Shift+9 move container to workspace number 9, workspace 9
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+w floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+Space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bar {
+	
+	swaybar_command waybar
+}
+
+include ~/.config/sway/config.d/*
+
+# Touch pad gestures
+
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+
+
+
