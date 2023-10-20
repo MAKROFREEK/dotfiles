@@ -1,0 +1,19 @@
+{
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.enablePreview": true,
+  "suggest.autoTrigger": "always",
+  "suggest.completeOpt": ["menuone", "noinsert"],
+  "suggest.maxPreviewHeight": 12,
+  "suggest.completionItemKindLabels": {
+    "Function": "ƒ",
+    "Method": "M",
+    "Property": "P",
+    "Variable": "V",
+    "Class": "C",
+    "Interface": "I",
+    "Module": "M",
+    "Keyword": "K",
+    "Snippet": "S"
+  }
+}
+
