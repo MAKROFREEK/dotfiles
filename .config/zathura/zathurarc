@@ -1,0 +1,61 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+# One page per row by default
+set pages-per-row 1
+
+# Stop at page boundaries
+set scroll-page-aware "true"
+set smooth-scroll "true"
+set scroll-full-overlap 0.01
+set scroll-step 100
+
+# Zoom settings
+set zoom-min 10
+set guioptions ""
+
+# Dracula theme settings
+set font "Ubuntu 13"
+set default-bg "#282a36"
+set default-fg "#f8f8f2"
+
+set statusbar-fg "#f8f8f2"
+set statusbar-bg "#44475a"
+
+set inputbar-bg "#282a36"
+set inputbar-fg "#f8f8f2"
+
+set notification-error-bg "#ff5555"
+set notification-error-fg "#282a36"
+
+set notification-warning-bg "#ff5555"
+set notification-warning-fg "#282a36"
+
+set highlight-color "#50fa7b"
+set highlight-active-color "#6272a4"
+
+set completion-highlight-fg "#282a36"
+set completion-highlight-bg "#bd93f9"
+
+set completion-bg "#44475a"
+set completion-fg "#f8f8f2"
+
+set notification-bg "#bd93f9"
+set notification-fg "#282a36"
+
+set recolor "true"
+set recolor-lightcolor "#282a36"
+set recolor-darkcolor "#f8f8f2"
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+set render-loading "false"
+set scroll-step 50
+
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
