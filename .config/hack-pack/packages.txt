@@ -1,0 +1,45 @@
+## Network Scanning
+nmap
+arping
+
+## Spoof Mac Address 
+macchanger
+
+## Vulnerability Scanning
+openvas
+
+## Password Cracking
+hashcat
+john
+
+## Network Sniffer
+wireshark
+tcpdump
+
+## Exploitation Frameworks
+metasploit
+beEF
+slowhttpstest
+
+## Post Exploit
+meterpreter
+
+
+## Web Application Scanners
+burp
+
+## Wireless Tools
+aircrack-ng
+reaver
+
+## Forensics Tools
+autopsy
+
+## Social Engineering Tools
+social-engineer-toolkit
+
+
+
+
+
+
