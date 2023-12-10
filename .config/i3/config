@@ -1,0 +1,215 @@
+# i3 Config
+
+# Set font
+font Ubuntu
+
+# Set the mod key (similar to Sway's Mod4)
+set $mod Mod4
+
+# Terminal emulator
+set $term kitty
+
+# Default wallpaper
+exec_always --no-startup-id killall polybar
+# exec_always feh --bg-fill -z -r ~/Pictures/Wallpapers
+exec_always killall xborders 
+exec_always autotiling
+exec_always --no-startup-id picom --config ~/.config/picom-ibhagwan.conf
+exec_always --no-startup-id dunst
+exec_always --no-startup-id xborders -c ~/.config/xborders/config.json
+exec_always nvidia-settings -a GPUFanControlState=1 -a GPUTargetFanSpeed=30
+# GTK settings (you may need to adjust this based on your GTK theme)
+exec_always gsetting set org.gnome.desktop.interface gtk-theme 'Draculaj
+exec_always gsetting set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
+exec_always gsetting set org.gnome.desktop.interface text-scaling-factor 1
+# Output configuration (set wallpaper and resolution as needed)
+exec_always xrandr --output DP-4 --mode 2560x1440 --rate 144
+exec_always feh --bg-fill ~/Pictures/Wallpapers/PixlCastle.png
+exec picom --experimental-backends --vsync
+exec_always ufw enable 
+exec_always --no-startup-id polybar main
+exec_always --no-startup-id systemctl start nordvpnd
+# Key bindings
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Start terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+q kill
+bindsym $mod+Shift+q exec ~/killFrame.sh
+
+# Start file manager
+bindsym $mod+e exec thunar
+
+# Game mode
+bindsym $mod+Shift+g exec bash ~/.config/i3/game-mode.sh
+
+# Start launcher
+bindsym $mod+d exec bash ~/.config/rofi/scripts/launcher
+bindsym $mod+Shift+d exec bash ~/.config/rofi/scripts/runner
+
+# Take screenshots
+bindsym $mod+s exec scrot -F ~/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.png && $camera_shutter
+bindsym $mod+Shift+s exec scrot -s -F ~/Pictures/Screenshots/
+
+# Start network manager
+bindsym $mod+n exec networkmanager_dmenu
+
+# Pick a color from the screen
+bindsym $mod+c exec xcolor | xclip -selection clipboard && $camera_shutter
+
+# Media keys (adjust these based on your system's keycodes)
+bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2%-
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Move between workspaces
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+# Move containers to workspaces
+bindsym $mod+Shift+1 move container to workspace 1, workspace 1
+bindsym $mod+Shift+2 move container to workspace 2, workspace 2
+bindsym $mod+Shift+3 move container to workspace 3, workspace 3
+bindsym $mod+Shift+4 move container to workspace 4, workspace 4
+bindsym $mod+Shift+5 move container to workspace 5, workspace 5
+bindsym $mod+Shift+6 move container to workspace 6, workspace 6
+bindsym $mod+Shift+7 move container to workspace 7, workspace 7
+bindsym $mod+Shift+8 move container to workspace 8, workspace 8
+bindsym $mod+Shift+9 move container to workspace 9, workspace 9
+
+# Fullscreen
+bindsym $mod+f fullscreen toggle
+
+# Toggle floating mode
+bindsym $mod+w floating toggle
+
+# Focus parent container
+bindsym $mod+a focus parent
+
+# Resize mode
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+0 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# mode for leave menu
+set $leave_menu Leave Menu: (a)fk, (l)ogout, (s)uspend, (h)ibernate, (r)eboot, (p)oweroff
+mode "$leave_menu" {
+    bindsym a exec --no-startup-id $myscripts/lock-session.sh, mode "default"
+    bindsym s exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+0 mode "$leave_menu"
+
+# Application-specific key bindings (replace these with your own)
+bindsym $mod+t exec bash ~/.config/scripts/timer.sh
+bindsym $mod+Shift+c exec bash ~/.config/scripts/calculator.sh
+
+# Reload i3 configuration
+bindsym $mod+Shift+r restart
+
+# HJKL
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Move focus and containers (similar to your Sway configuration)
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# System sounds
+
+
+set $bell2 paplay '/usr/share/sounds/freedesktop/stereo/dialog-information.oga'
+set $attention paplay '/usr/share/sounds/freedesktop/stereo/window-attention.oga'
+set $bell paplay '/usr/share/sounds/freedesktop/stereo/bell.oga'
+set $device_removed paplay '/usr/share/sounds/freedesktop/stereo/device-removed.oga'
+set $device_added paplay '/usr/share/sounds/freedesktop/stereo/device-added.oga'
+set $message paplay '/usr/share/sounds/freedesktop/stereo/message.oga'
+set $camera_shutter paplay '/usr/share/sounds/freedesktop/stereo/camera-shutter.oga'
+set $volume_changed_sound paplay '/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga'
+
+# System colors
+
+# class                 border  bground text    indicator child_border
+client.focused          #ff79c6 #ff79c6 #F8F8F2 #ff79c6   #ff79c6
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #ff5555 #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+
+# Window borders
+default_border pixel 0
+default_floating_border pixel 0
+gaps inner 10
+gaps outer 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
