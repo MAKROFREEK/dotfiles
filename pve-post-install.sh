@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-#https://github.com/MAKROFREEK/dotfiles/blob/main/pve-post-install.sh
+#bash -c "$(wget -qLO - https://github.com/MAKROFREEK/dotfiles/edit/main/pve-post-install.sh)"
+
 
 header_info() {
   clear
