@@ -14,7 +14,6 @@ EOF
 }
 
 # Remove Enterprise Repo
-
 rm /etc/apt/sources.list.d/pve-enterprise.list
 # msg_ok "Removed Proxmox Enterprise Repo"
 
@@ -29,13 +28,25 @@ resize2fs /dev/mapper/pve-root
 # msg_ok "Single Storage Increased to 100%" 
 
 # Install Neovim
-apt-get install neovim git fish fisher -y
-# msg_ok "Installed Packages"
+apt-get install neovim btop -y
+# msg_ok "Installed packages neovim, btop..."
+
+# Setup neovim plugins
+# Put code here for that eventually
 
 # Set preferences
+export EDITOR='nvim'
+export PAGER='nvim'
 export MANPAGER='nvim +Man!'
+export VISUAL='nvim'
+export YAY_PAGER='less'
 # msg_ok "Preferences set"
 
-# Set fish as default shell
-chsh -s /usr/bin/fish
-# msg_ok "Set fish as default shell"
+# Set aliases
+alias rtfm='man'
+alias gtfo='exit'
+alias bork='rm -rf'
+alias yolo='git push -f'
+alias moo='cow say'
+alias gimme='git clone'
+alias taskman='btop'
