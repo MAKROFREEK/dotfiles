@@ -1,23 +1,13 @@
 #!/bin/bash
 set -e  # Exit on any error
 
-# check if running as sudo
-#if [[ $EUID -ne 0 ]]; then
-#    echo "This script must be run as root (sudo)." 
-#    exit 1
-#fi
-
-# copy folders
+# Copy folders
 cp -r dotfiles/.config/* ~/.config
-
-# copy background
 cp -r dotfiles/.local/* ~/.local
-
-# copy documents
 cp -r dotfiles/documents/* ~/Documents
 
-# copy themes 
-mkdir ~/.themes
+# Copy themes
+mkdir -p ~/.themes
 cp -r dotfiles/.themes/* ~/.themes
 
 # Update and upgrade the system
@@ -26,39 +16,40 @@ sudo apt update && sudo apt upgrade -y
 
 # Install packages
 echo "Installing packages..."
-sudo apt install -y software-properties-common curl wget gnupg \
-    spotify-client \
-    steam \
-    vlc \
-    neovim \
-    kitty \
-    fish \
-    btop \
-    dunst \
-    ranger \
-    zathura zathura-pdf-poppler \
-    rofi
+sudo apt install -y software-properties-common curl wget gnupg kitty neovim neofetch git ocs-url btop dunst ranger zathura zathura-pdf-poppler rofi vlc steam spotify-client fish ttf-ubuntu-mono-nerd papirus-folders-git gnome-tweaks
 
 # Third-party applications
 # Discord
-curl -L -o discord.deb "https://discord.com/api/download?platform=linux&format=deb"
-sudo apt install -y ./discord.deb
-rm discord.deb
+if curl -L -o discord.deb "https://discord.com/api/download?platform=linux&format=deb"; then
+    sudo apt install -y ./discord.deb
+    rm discord.deb
+else
+    echo "Failed to download Discord. Skipping..."
+fi
 
 # Obsidian
-curl -L -o obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.1.16/Obsidian-1.1.16.deb"
-sudo apt install -y ./obsidian.deb
-rm obsidian.deb
+if curl -L -o obsidian.deb "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.1.16/Obsidian-1.1.16.deb"; then
+    sudo apt install -y ./obsidian.deb
+    rm obsidian.deb
+else
+    echo "Failed to download Obsidian. Skipping..."
+fi
 
 # Angry IP Scanner
-wget https://github.com/angryip/ipscan/releases/download/3.9.0/ipscan_3.9.0_amd64.deb
-sudo apt install -y ./ipscan_3.9.0_amd64.deb
-rm ipscan_3.9.0_amd64.deb
+if wget -q "https://github.com/angryip/ipscan/releases/download/3.9.0/ipscan_3.9.0_amd64.deb"; then
+    sudo apt install -y ./ipscan_3.9.0_amd64.deb
+    rm ipscan_3.9.0_amd64.deb
+else
+    echo "Failed to download Angry IP Scanner. Skipping..."
+fi
 
 # Prism Launcher
-wget https://github.com/PrismLauncher/PrismLauncher/releases/download/v7.1/PrismLauncher-7.1-linux64.deb
-sudo apt install -y ./PrismLauncher-7.1-linux64.deb
-rm PrismLauncher-7.1-linux64.deb
+if wget -q "https://github.com/PrismLauncher/PrismLauncher/releases/download/v7.1/PrismLauncher-7.1-linux64.deb"; then
+    sudo apt install -y ./PrismLauncher-7.1-linux64.deb
+    rm PrismLauncher-7.1-linux64.deb
+else
+    echo "Failed to download Prism Launcher. Skipping..."
+fi
 
 # Set Fish shell as default
 echo "Setting Fish shell as the default shell..."
