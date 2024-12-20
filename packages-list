@@ -4,11 +4,16 @@ neofetch
 git
 curl
 ocs-url
-code
-intellij
 fish
 fisher
-zzz
-slockd
-plymouth
+btop
+dunst
+ranger
+zathura
+zathura-pdf-poppler
+rofi
+vlc
+steam
+spotify-client
+
 
