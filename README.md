@@ -38,7 +38,7 @@ Welcome to my Dotfiles Post-Installation Script repository! This script is my tr
    dots push
 
 ## Scripts
-
+   ``` bash
    **post-install.sh**: For use with desktop linux systems, preferably debian.
    **pve-post-install.sh**: For use with proxmox.
 
