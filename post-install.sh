@@ -14,8 +14,8 @@ echo "Updating system..."
 sudo apt update && sudo apt upgrade -y
 
 # Install packages
-echo "Installing packages..."
-sudo apt install -y software-properties-common curl wget gnupg kitty neovim neofetch git btop dunst ranger zathura zathura-pdf-poppler rofi vlc steam spotify-client gnome-tweaks
+# echo "Installing packages..."
+# sudo apt install -y software-properties-common curl wget gnupg kitty neovim neofetch git btop dunst ranger zathura zathura-pdf-poppler rofi vlc steam spotify-client gnome-tweaks
 
 # Final system update
 echo "Updating and cleaning up..."
