@@ -39,8 +39,6 @@ Welcome to my Dotfiles Post-Installation Script repository! This script is my tr
 
 ## Scripts
 
-    get-packages.sh: Installs essential packages and dependencies.
-    gnome-settings.sh: Configures GNOME desktop settings in case dots get it wrong.
-    install-timer.sh: Installs custom version of simple-timer-extension on gnome-extensions.
-
+   **post-install.sh**: For use with desktop linux systems, preferably debian.
+   **pve-post-install.sh**: For use with proxmox.
 
