@@ -11,29 +11,24 @@ set $term kitty
 
 # Default wallpaper
 exec_always --no-startup-id killall polybar
-#exec_always feh --bg-fill -z -r ~/Pictures/backgrounds-main
-exec_always feh --bg-fill ~/Pictures/backgrounds-main/Pixel_Art/1298880.png
-#exec_always feh --bg-fil ~/Pictures/backgrounds-main/face.png
-exec_always killall xborder
-exec_always --no-startup-id xfce4-power-manager
-exec_always --no-startup-id autotiling.py
-exec_always --no-startup-id picom
+# exec_always feh --bg-fill -z -r ~/Pictures/Wallpapers
+#exec_always killall xborders 
+#exec_always autotiling
+#exec_always --no-startup-id picom --config ~/.config/picom-ibhagwan.conf
 exec_always --no-startup-id dunst
-exec_always --no-startup-id bash ~/.config/scripts/xborders.sh
-#exec_always nvidia-settings -a GPUFanControlState=1 -a GPUTargetFanSpeed=30
+exec_always --no-startup-id xborders -c ~/.config/xborders/config.json
+exec_always nvidia-settings -a GPUFanControlState=1 -a GPUTargetFanSpeed=30
 # GTK settings (you may need to adjust this based on your GTK theme)
-exec_always gsetting set org.gnome.desktop.interface gtk-theme 'Dracula'
+exec_always gsetting set org.gnome.desktop.interface gtk-theme 'Draculaj
 exec_always gsetting set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 exec_always gsetting set org.gnome.desktop.interface text-scaling-factor 1
 # Output configuration (set wallpaper and resolution as needed)
-exec_always xrandr --output eDP-1 --mode 1920x1080 --rate 59
-#exec_always feh --bg-fill ~/Pictures/Wallpapers/PixlCastle.png
-#exec picom --experimental-backends --vsync
-#exec_always ufw enable 
-exec --no-startup-id xfsettingsd --sm-client-disable &
+exec_always xrandr --output DP-4 --mode 2560x1440 --rate 144
+exec_always feh --bg-fill ~/Pictures/Wallpapers/PixlCastle.png
+exec picom --experimental-backends --vsync
+exec_always ufw enable 
 exec_always --no-startup-id polybar main
 exec_always --no-startup-id systemctl start nordvpnd
-exec_always --no-startup-id nordvpn connect
 # Key bindings
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -49,7 +44,7 @@ bindsym $mod+Shift+q exec ~/killFrame.sh
 bindsym $mod+e exec thunar
 
 # Game mode
-bindsym $mod+Shift+g exec bash ~/.config/i3/game-mode.sh
+#bindsym $mod+Shift+g exec bash ~/.config/i3/game-mode.sh
 
 # Start launcher
 bindsym $mod+d exec bash ~/.config/rofi/scripts/launcher
@@ -67,17 +62,11 @@ bindsym $mod+c exec xcolor | xclip -selection clipboard && $camera_shutter
 
 # Media keys (adjust these based on your system's keycodes)
 bindsym XF86AudioMute exec amixer -q set Master toggle
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2%-
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-# bindsym XF86MonBrightnessDown exec brightnessctl --min-val=1 -q set 10%-
-# bindsym XF86MonBrightnessUp exec brightnessctl -q set 5%+
-bindsym Next exec --no-startup-id brightnessctl --min-val=1 -q set 10%-
-bindsym Prior exec --no-startup-id brightnessctl -q set 5%+
-
-
 
 # Move between workspaces
 bindsym $mod+1 workspace 1
@@ -129,9 +118,10 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+0 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # mode for leave menu
-set $leave_menu  Logout  Suspend  Hibernate  Reboot  Poweroff
+set $leave_menu Leave Menu: (a)fk, (l)ogout, (s)uspend, (h)ibernate, (r)eboot, (p)oweroff
 mode "$leave_menu" {
-    bindsym l exec --no-startup-id i3-msg exit, mode "default"
+    bindsym a exec --no-startup-id $myscripts/lock-session.sh, mode "default"
+    bindsym s exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym h exec --no-startup-id systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
@@ -142,18 +132,6 @@ mode "$leave_menu" {
     bindsym Escape mode "default"
 }
 bindsym $mod+0 mode "$leave_menu"
-
-# mode for fan menu
-set $fan_menu  High  Low
-mode "$fan_menu" {
-    bindsym l exec bash ~/.config/scripts/dell-fan-control.sh && i8kctl fan - 1
-    bindsym h exec bash ~/.config/scripts/dell-fan-control.sh && i8kctl fan - 2
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+Shift+f mode "$fan_menu"
 
 # Application-specific key bindings (replace these with your own)
 bindsym $mod+t exec bash ~/.config/scripts/timer.sh
@@ -212,9 +190,11 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 # Window borders
 default_border pixel 0
 default_floating_border pixel 0
-gaps inner 36
-gaps outer -36
-border_radius 11
+gaps inner 10
+gaps outer 4
+
+
+
 
 
 

@@ -1,0 +1,132 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Ubuntu Mono Nerd Font;
+    font-size: 1rem;
+    min-height: 0;
+    margin: 0 3px;
+    opacity: 15;
+    padding: 1px;
+}
+
+
+window#waybar {
+    /*background-color: rgba(40, 42, 54, 0.90);*/ /* lighter option */
+    /* background-color: rgba(33, 34, 44, 0.90); */
+    background-color: rgba(26, 27, 36, 0.90); /* darker option */
+    border-bottom: none;
+    color: #f8f8f2;
+    padding: 2px;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+#bluetooth {
+    color: #f8f8f2;
+    font-size: 1.1rem;
+}
+
+#timer {
+    color: #f8f8f2;
+    font-size: 1.1rem;
+}
+
+#
+#workspaces button {
+    padding: 5px;
+    color: #f8f8f2;
+    font-size: 3rem;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    /*background: rgba(29, 30, 38, 0.2);*/
+    box-shadow: inherit;
+    border-bottom: none;
+    border-radius: 12px;
+}
+
+#workspaces button.focused {
+    color: #f8f8f2;
+    border-bottom: none;
+}
+
+#workspaces button.urgent {
+    color: #ff5555;
+}
+
+#mode {
+    /*background-color: #64727d;*/
+}
+
+#mode
+#clock,
+#backlight,
+#network,
+#pulseaudio,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 0 0.6rem;
+    margin: 0 0px;
+    font-size: 1.0rem;
+    color: #ffffff;
+}
+
+.timer {
+    /*font-size: 1.1rem;*/
+    color: #f8f8f2;
+}
+
+#battery {
+  	font-size: 1.1rem;
+	color: #f8f8f2;
+}
+
+#battery.charging {
+    font-size: 1.1rem;
+    color: #f1fa8c;
+}
+
+#battery.critical:not(.charging) {
+    color: #ff5555;
+    font-size: 1.1rem;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#backlight {
+    font-size: 1.1rem;
+    color: #f8f8f2;
+}
+
+#network {
+    color: #f8f8f2;
+}
+
+#pulseaudio { 
+    font-size: 1.1rem;
+    color: #f8f8f2;
+}
+
+#pulseaudio.muted {
+    color: #f8f8f2;
+}
+
+#idle_inhibitor {
+    color: #f8f8f2;
+}
+#power {
+    color: #ff5555;
+    font-size: 1.6rem;
+}
+
+tooltip {
+     border-radius: 12px;
+     background-color: rgba(26, 27, 36, 0.90);
+     /*foreground-color: #f8f8f2;
+     border: 4px solid #44475a; */
+}
