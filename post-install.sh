@@ -29,4 +29,4 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Download and copy backgrounds
-bash dotfiles/backgrounds.sh
+bash dotfiles/get-backgrounds.sh
