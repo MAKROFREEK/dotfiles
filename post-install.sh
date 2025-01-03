@@ -13,6 +13,8 @@ cp -r .themes/ ~/.themes
 # Download and copy backgrounds
 ./get-backgrounds.sh
 
+# Get curl wget git
+sudo apt-get install git curl wget
 
 ## NEOVIM 
 # Neovim - VimPlug installation and update prompt
