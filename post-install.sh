@@ -18,17 +18,20 @@ sudo apt-get install git curl wget
 
 ### APPLICATIONS
 
-## NEOVIM 
-# Neovim - VimPlug installation and update prompt
 read -p "Do you want to install VimPlug for Neovim and ensure the latest version is installed? (y/n): " neovim_setup
 if [[ "$neovim_setup" =~ ^[Yy](es)?$ ]]; then
-    # Neovim - Install VimPlug
     echo "Installing VimPlug for Neovim..."
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    # Neovim - Ensure latest version
-    echo "Adding the latest Neovim repository..."
-    sudo add-apt-repository ppa:neovim-ppa/stable
+    # Download VimPlug
+    curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload/plug.vim" --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    echo "Adding the latest Neovim repository and updating Neovim..."
+    # Add Neovim repository and update
+    sudo add-apt-repository -y ppa:neovim-ppa/stable
+    sudo apt update
+    sudo apt install -y neovim
+
+    echo "VimPlug installed and Neovim updated successfully!"
 else
     echo "Skipping VimPlug installation and Neovim update."
 fi
