@@ -16,6 +16,8 @@ cp -r .themes/ ~/.themes
 # Get curl wget git
 sudo apt-get install git curl wget
 
+### APPLICATIONS
+
 ## NEOVIM 
 # Neovim - VimPlug installation and update prompt
 read -p "Do you want to install VimPlug for Neovim and ensure the latest version is installed? (y/n): " neovim_setup
@@ -54,16 +56,23 @@ else
     echo "Skipping package installation."
 fi
 
+# Section for Spotify
+curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update
+sudo apt-get install spotify-client
 
-## FONTS
-# Nerd Fonts installation prompt
-read -p "Do you want to install Nerd Fonts? (y/n): " nerd_fonts
-if [[ "$nerd_fonts" =~ ^[Yy](es)?$ ]]; then
-    echo "Setting up Nerd Fonts..."
-    ./nerd-fonts.sh
-else
-    echo "Skipping Nerd Fonts installation."
-fi
+# Section for Steam
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo dpkg -i ~/steam.deb
+sudo apt-get install -f
+rm steam.deb
+
+# Section for Proton Glorious Eggroll
+touch ~/.steam/root/compatibilitytools.d
+git https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-22/GE-Proton9-22.tar.gz
+tar -xf GE-Proton9-22.tar.gz  -C ~/.steam/root/compatibilitytools.d/
+rm  GE-Proton9-22.tar.gz
 
 
 # Hack pack
@@ -96,6 +105,20 @@ if [[ "$i3wm_setup" =~ ^[Yy](es)?$ ]]; then
 else
     echo "Skipping i3wm installation."
 fi
+
+
+
+### FONTS
+# Nerd Fonts installation prompt
+read -p "Do you want to install Nerd Fonts? (y/n): " nerd_fonts
+if [[ "$nerd_fonts" =~ ^[Yy](es)?$ ]]; then
+    echo "Setting up Nerd Fonts..."
+    ./nerd-fonts.sh
+else
+    echo "Skipping Nerd Fonts installation."
+fi
+
+
 
 
 # Final system update
