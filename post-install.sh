@@ -74,6 +74,12 @@ git https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Pro
 tar -xf GE-Proton9-22.tar.gz  -C ~/.steam/root/compatibilitytools.d/
 rm  GE-Proton9-22.tar.gz
 
+# Section for discord (vesktop)
+wget https://vencord.dev/download/vesktop/amd64/deb
+sudo dpkg -i vesktop.deb
+sudo apt-get install -f
+rm vesktop.deb
+
 
 # Hack pack
 read -p "Do you want to install hackpack? (y/n): " user_input
