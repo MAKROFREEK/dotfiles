@@ -1,23 +1,11 @@
 kitty 
 neovim 
-neofetch 
-git 
-curl 
-ocs-url 
 btop 
 dunst 
-ranger 
 zathura 
 zathura-pdf-poppler 
-rofi 
 vlc 
-steam 
-spotify-client 
 gnome-tweaks
-polybar
-redshift
-feh
-flameshot
 python3-pip
 apt-transport-https
 
