@@ -47,7 +47,7 @@ if [[ "$packages_install" =~ ^[Yy](es)?$ ]]; then
         # Ignore empty lines and comments (lines starting with #)
         if [[ -n "$package" && ! "$package" =~ ^# ]]; then
             echo "Installing $package..."
-            sudo apt install -y "$package"
+            sudo apt install "$package"
         fi
     done < "packages-list"
 else
@@ -91,7 +91,7 @@ if [[ "$i3wm_setup" =~ ^[Yy](es)?$ ]]; then
     curl https://baltocdn.com/i3-window-manager/signing.asc | sudo apt-key add -
     echo "deb https://baltocdn.com/i3-window-manager/i3/i3-autobuild/ all main" | sudo tee /etc/apt/sources.list.d/i3-autobuild.list
     sudo apt update
-    sudo apt install i3 dunst polybar ranger rofi feh flameshot redshift
+    sudo apt install i3 dunst polybar ranger rofi feh flameshot redshift kitty
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E3CA1A89941C42E6
 else
     echo "Skipping i3wm installation."
