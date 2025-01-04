@@ -6,15 +6,13 @@
 # Copy folders
 cp -r .config/ ~/.config
 cp -r .local/ ~/.local
-
-# Copy themes
 cp -r .themes/ ~/.themes
 
 # Download and copy backgrounds
 ./get-backgrounds.sh
 
-# Get curl wget git
-sudo apt-get install git curl wget
+# Requirements
+sudo apt-get install git curl wget -y
 
 ### APPLICATIONS
 
