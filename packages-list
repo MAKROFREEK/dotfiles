@@ -1,12 +1,6 @@
-kitty 
-neovim 
-btop 
-dunst 
-zathura 
-zathura-pdf-poppler 
+btop
 vlc 
 gnome-tweaks
-python3-pip
-apt-transport-https
+gnome-shell-extension-manager
 
 
