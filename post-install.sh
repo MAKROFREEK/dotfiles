@@ -51,7 +51,9 @@ if [[ "$packages_install" =~ ^[Yy](es)?$ ]]; then
         # Ignore empty lines and comments (lines starting with #)
         if [[ -n "$package" && ! "$package" =~ ^# ]]; then
             echo "Installing $package..."
-            sudo apt install "$package"
+            sudo apt install -y "$package" || {
+                echo "Failed to install $package. Continuing with the next package."
+            }
         fi
     done < "packages-list"
 else
