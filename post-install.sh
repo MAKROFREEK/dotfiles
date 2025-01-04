@@ -68,7 +68,7 @@ echo "Script execution completed."
 
 ## DESKTOP APPS
 read -p "Will you be gaming with this setup? (y/n): " user_input
-if [[ "$user_input" =~ &[Yy(es)?$ ]]; then
+if [[ "$user_input" =~ ^[Yy(es)?$ ]]; then
 
     # Section for Spotify
     curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
