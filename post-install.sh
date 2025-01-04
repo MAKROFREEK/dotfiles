@@ -17,6 +17,8 @@ sudo apt-get install git curl wget -y
 
 ### THEMES
 ## ICONS
+wget https://github.com/dpejoh/Adwaita-colors/releases/download/v2.4.1/adwaita-colors-theme-2.4.1.deb
+sudo dpkg -i adwaita-colors-theme-2.4.1.deb
 
 
 ## BACKGROUNDS
