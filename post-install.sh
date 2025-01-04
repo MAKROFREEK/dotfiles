@@ -2,19 +2,20 @@
 # set -e  # Exit on any error
 
 ## FILES & DIRECTORIES
-
-# Copy folders
 cp -r .config/ ~/.config
 cp -r .local/ ~/.local
 cp -r .themes/ ~/.themes
 
-# Download and copy backgrounds
+## BACKGROUNDS
 ./get-backgrounds.sh
 
-# Requirements
+## REQUIREEMENTS
 sudo apt-get install git curl wget -y
 
-### APPLICATIONS
+## INIT UPDATE
+sudo apt-get update
+
+## APPLICATIONS
 
 read -p "Do you want to install VimPlug for Neovim and ensure the latest version is installed? (y/n): " neovim_setup
 if [[ "$neovim_setup" =~ ^[Yy](es)?$ ]]; then
@@ -35,30 +36,36 @@ else
     echo "Skipping VimPlug installation and Neovim update."
 fi
 
-## PACKAGES
-# Package installation prompt
-read -p "Do you want to install the packages listed in 'packages-list'? (y/n): " packages_install
-if [[ "$packages_install" =~ ^[Yy](es)?$ ]]; then
-    # Check if the packages-list file exists
-    if [ ! -f "packages-list" ]; then
-        echo "Error: packages-list file not found!"
-        exit 1
-    fi
 
-    # Read the packages from the file and install them
-    echo "Installing packages from packages-list..."
+## PACKAGES
+# Check if the packages-list file exists
+if [[ ! -f packages-list ]]; then
+    echo "Error: packages-list file not found."
+    exit 1
+fi
+
+# Ask the user if they want to proceed
+read -p "Do you want to install packages from packages-list? (yes/no): " response
+
+# If "no", skip installation and continue
+if [[ "$response" == "no" ]]; then
+    echo "Skipping package installation."
+else
+    # Read the file line by line and install each package
     while IFS= read -r package; do
-        # Ignore empty lines and comments (lines starting with #)
-        if [[ -n "$package" && ! "$package" =~ ^# ]]; then
+        if [[ -n "$package" && "$package" != \#* ]]; then
             echo "Installing $package..."
-            sudo apt install -y "$package" || {
-                echo "Failed to install $package. Continuing with the next package."
+            sudo apt-get install -y "$package" || {
+                echo "Failed to install $package. Skipping..."
             }
         fi
-    done < "packages-list"
-else
-    echo "Skipping package installation."
+    done < packages-list
+    echo "All packages processed."
 fi
+
+# Continue the script if more operations are to follow
+echo "Script execution completed."
+
 
 # Section for Spotify
 curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
@@ -66,27 +73,35 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 sudo apt-get update
 sudo apt-get install spotify-client
 
-# Section for Steam
-wget -O steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo dpkg -i ~/steam.deb
-sudo apt-get install -f
-rm steam.deb
+## Desktop Gaming
+read -p "Will you be gaming with this setup? (y/n): " user_input
+if [[ "$user_input" =~ &[Yy(es)?$ ]]; then
 
-# Section for Proton Glorious Eggroll
-touch ~/.steam/root/compatibilitytools.d
-git https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-22/GE-Proton9-22.tar.gz
-tar -xf GE-Proton9-22.tar.gz  -C ~/.steam/root/compatibilitytools.d/
-rm  GE-Proton9-22.tar.gz
+    # Section for Steam
+    wget -O steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+    sudo dpkg -i ~/steam.deb
+    sudo apt-get install -f
+    rm steam.deb
 
-# Section for discord (vesktop)
-wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
-sudo dpkg -i vesktop.deb
-sudo apt-get install -f
-rm vesktop.deb
+    # Section for Proton Glorious Eggroll
+    touch ~/.steam/root/compatibilitytools.d
+    git https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton9-22/GE-Proton9-22.tar.gz
+    tar -xf GE-Proton9-22.tar.gz  -C ~/.steam/root/compatibilitytools.d/
+    rm  GE-Proton9-22.tar.gz
 
+    # Section for discord (vesktop)
+    wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
+    sudo dpkg -i vesktop.deb
+    sudo apt-get install -f
+    rm vesktop.deb
 
-# Hack pack
-read -p "Do you want to install hackpack? (y/n): " user_input
+else
+    # Continue if the user chooses no
+    echo "Skipping gaming apps."
+fi
+
+# HACK TOOLS
+read -p "Do you want to install hacking tools? (y/n): " user_input
 if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
     # Run the script if the user chooses yes
     echo "Running the hackpack installation..."
@@ -118,7 +133,7 @@ fi
 
 
 
-### FONTS
+## FONTS
 # Nerd Fonts installation prompt
 read -p "Do you want to install Nerd Fonts? (y/n): " nerd_fonts
 if [[ "$nerd_fonts" =~ ^[Yy](es)?$ ]]; then
@@ -131,9 +146,8 @@ fi
 
 
 
-# Final system update
+# FINAL UPDATE
 echo "Updating and cleaning up..."
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 echo "Post install complete."
-
