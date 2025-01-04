@@ -110,7 +110,7 @@ if [[ "$i3wm_setup" =~ ^[Yy](es)?$ ]]; then
 
     echo "deb https://baltocdn.com/i3-window-manager/i3/i3-autobuild/ all main" | sudo tee /etc/apt/sources.list.d/i3-autobuild.list
     sudo apt update
-    sudo apt install -y i3 dunst polybar ranger rofi feh flameshot redshift kitty
+    sudo apt install -y i3 dunst polybar ranger rofi feh flameshot redshift kitty lxappearance
 else
     echo "Skipping i3wm installation."
 fi
