@@ -1,22 +1,29 @@
 #!/bin/bash
 set -e  # Exit on any error
 
-## FILES & DIRECTORIES
+
+### FILES & DIRECTORIES
+## CONFIG
 cp -r .config/ ~/.config
+## LOCAL
 cp -r .local/ ~/.local
+## THEMES
 cp -r .themes/ ~/.themes
 
-## BACKGROUNDS
-./get-backgrounds.sh
 
 ## REQUIREMENTS
 sudo apt-get install git curl wget -y
 
-## INIT UPDATE
-sudo apt-get update
+
+### THEMES
+## ICONS
+
+
+## BACKGROUNDS
+./get-backgrounds.sh
+
 
 ## APPLICATIONS
-
 read -p "Do you want to install VimPlug for Neovim and ensure the latest version is installed? (y/n): " neovim_setup
 if [[ "$neovim_setup" =~ ^[Yy](es)?$ ]]; then
     echo "Installing VimPlug for Neovim..."
@@ -85,9 +92,11 @@ if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
     wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
     sudo dpkg -i vesktop.deb || sudo apt-get install -f -y
     rm vesktop.deb
+    
 else
     echo "Skipping gaming apps."
 fi
+
 
 ## HACK TOOLS
 read -p "Do you want to install hacking tools? (y/n): " user_input
@@ -97,6 +106,7 @@ if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
 else
     echo "Skipping the hackpack installation."
 fi
+
 
 ## i3wm
 read -p "Do you want to install i3wm and set up auto-tiling? (y/n): " i3wm_setup
@@ -115,6 +125,7 @@ else
     echo "Skipping i3wm installation."
 fi
 
+
 ## FONTS
 read -p "Do you want to install Nerd Fonts? (y/n): " nerd_fonts
 if [[ "$nerd_fonts" =~ ^[Yy](es)?$ ]]; then
@@ -123,6 +134,7 @@ if [[ "$nerd_fonts" =~ ^[Yy](es)?$ ]]; then
 else
     echo "Skipping Nerd Fonts installation."
 fi
+
 
 ## FINAL UPDATE
 echo "Updating and cleaning up..."
