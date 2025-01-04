@@ -27,9 +27,10 @@ if [[ "$neovim_setup" =~ ^[Yy](es)?$ ]]; then
 
     echo "Adding the latest Neovim repository and updating Neovim..."
     # Add Neovim repository and update
-    sudo add-apt-repository -y ppa:neovim-ppa/stable
-    sudo apt update
-    sudo apt install -y neovim
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux64.tar.gz
+    export PATH="$PATH:/opt/nvim-linux64/bin"
 
     echo "VimPlug installed and Neovim updated successfully!"
 else
