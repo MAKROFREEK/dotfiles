@@ -66,20 +66,19 @@ fi
 # Continue the script if more operations are to follow
 echo "Script execution completed."
 
-
-# Section for Spotify
-curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update
-sudo apt-get install spotify-client
-
-## Desktop Gaming
+## DESKTOP APPS
 read -p "Will you be gaming with this setup? (y/n): " user_input
 if [[ "$user_input" =~ &[Yy(es)?$ ]]; then
 
+    # Section for Spotify
+    curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt-get update
+    sudo apt-get install spotify-client
+
     # Section for Steam
     wget -O steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-    sudo dpkg -i ~/steam.deb
+    sudo dpkg -i steam.deb
     sudo apt-get install -f
     rm steam.deb
 
@@ -112,7 +111,7 @@ else
 fi
 
 
-## i3wm
+## I3WM
 # i3wm installation and auto-tiling setup prompt
 read -p "Do you want to install i3wm and set up auto-tiling? (y/n): " i3wm_setup
 if [[ "$i3wm_setup" =~ ^[Yy](es)?$ ]]; then
