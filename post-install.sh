@@ -65,7 +65,7 @@ sudo apt-get update
 sudo apt-get install spotify-client
 
 # Section for Steam
-wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+wget -O steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo dpkg -i ~/steam.deb
 sudo apt-get install -f
 rm steam.deb
@@ -77,7 +77,7 @@ tar -xf GE-Proton9-22.tar.gz  -C ~/.steam/root/compatibilitytools.d/
 rm  GE-Proton9-22.tar.gz
 
 # Section for discord (vesktop)
-wget https://vencord.dev/download/vesktop/amd64/deb
+wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
 sudo dpkg -i vesktop.deb
 sudo apt-get install -f
 rm vesktop.deb
