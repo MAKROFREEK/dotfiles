@@ -2,14 +2,20 @@
 
 
 
-# clone backgrounds
+# Clone the repository
 git clone https://github.com/makrofreek/backgrounds
-# move dirs
+
+# Navigate to the "backgrounds" directory
 cd backgrounds
-# copy bgs
-mkdir ~/Pictures/Backgrounds
-cp -r /Pixel Art ~/Pictures/Backgrounds
-#set bg
-# gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/Backgrounds/1298880.png
-# remove repo
-rm -rf /backgrounds
+
+# Create a folder to store backgrounds
+mkdir -p ~/Pictures/Backgrounds
+
+# Copy the "Pixel Art" folder into the new location
+cp -r "Pixel Art" ~/Pictures/Backgrounds
+
+# Set the desktop background (replace with your desired image file)
+gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/Pictures/Backgrounds/1298880.png
+
+# Remove the cloned repository
+rm -rf ~/backgrounds
