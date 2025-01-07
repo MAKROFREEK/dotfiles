@@ -21,6 +21,7 @@ gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
 gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-Brown'
 
 ## BACKGROUNDS
+chmod +x get-backgrounds.sh
 ./get-backgrounds.sh
 
 
