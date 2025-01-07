@@ -8,7 +8,15 @@ cp -r .config/ ~/.config
 ## LOCAL
 cp -r .local/ ~/.local
 ## THEMES
-cp -r .themes/ ~/.themes
+
+# Download latest dracula
+git clone https://github.com/dracula/gtk
+cp -r gtk ~/.themes/Dracula
+rm -rf gtk
+
+# Apply GNOME theme settings
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
 
 
 ## REQUIREMENTS
