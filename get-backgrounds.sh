@@ -18,4 +18,5 @@ cp -r "Pixel Art" ~/Pictures/Backgrounds
 gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/Pictures/Backgrounds/1298880.png
 
 # Remove the cloned repository
+cd ..
 rm -rf ~/backgrounds
