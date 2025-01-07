@@ -70,9 +70,6 @@ else
 fi
 
 
-## TERMINAL
-# sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 100
-# sudo update-alternatives --config x-terminal-emulator
 
 
 ## Desktop Gaming
@@ -126,9 +123,14 @@ if [[ "$i3wm_setup" =~ ^[Yy](es)?$ ]]; then
     sudo apt install ./sur5r-keyring_2024.03.04_all.deb
     rm sur5r-keyring_2024.03.04_all.deb
 
+    # Install creature comforts for i3wm
     echo "deb https://baltocdn.com/i3-window-manager/i3/i3-autobuild/ all main" | sudo tee /etc/apt/sources.list.d/i3-autobuild.list
     sudo apt update
     sudo apt install -y i3 dunst polybar ranger rofi feh flameshot redshift kitty lxappearance
+    
+    ## TERMINAL
+    sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 100
+    sudo update-alternatives --config x-terminal-emulator
 else
     echo "Skipping i3wm installation."
 fi
