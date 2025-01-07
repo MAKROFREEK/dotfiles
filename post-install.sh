@@ -2,32 +2,23 @@
 set -e  # Exit on any error
 
 
-### FILES & DIRECTORIES
-## CONFIG
-cp -r .config/ ~/.config
-## LOCAL
-cp -r .local/ ~/.local
-## THEMES
+## REQUIREMENTS
+sudo apt-get install git curl wget -y
 
+### THEMES
 # Download latest dracula
 git clone https://github.com/dracula/gtk
 cp -r gtk ~/.themes/Dracula
 rm -rf gtk
 
-# Apply GNOME theme settings
-gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
-gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
-
-
-## REQUIREMENTS
-sudo apt-get install git curl wget -y
-
-
-### THEMES
 ## ICONS
 wget https://github.com/dpejoh/Adwaita-colors/releases/download/v2.4.1/adwaita-colors-theme-2.4.1.deb
 sudo dpkg -i adwaita-colors-theme-2.4.1.deb
 
+# Apply GNOME theme settings
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-Brown'
 
 ## BACKGROUNDS
 ./get-backgrounds.sh
@@ -151,6 +142,11 @@ else
     echo "Skipping Nerd Fonts installation."
 fi
 
+### FILES & DIRECTORIES
+## CONFIG
+cp -r .config/ ~/.config
+## LOCAL
+cp -r .local/ ~/.local
 
 ## FINAL UPDATE
 echo "Updating and cleaning up..."
