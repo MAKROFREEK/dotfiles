@@ -2,14 +2,18 @@
 set -e  # Exit on any error
 
 
+
 ## REQUIREMENTS
 sudo apt-get install git curl wget -y
+
+
 
 ### THEMES
 # Download latest dracula
 git clone https://github.com/dracula/gtk
 cp -r gtk ~/.themes/Dracula
 rm -rf gtk
+
 
 ## ICONS
 wget https://github.com/dpejoh/Adwaita-colors/releases/download/v2.4.1/adwaita-colors-theme-2.4.1.deb
@@ -23,6 +27,7 @@ gsettings set org.gnome.desktop.interface icon-theme 'Adwaita-Brown'
 ## BACKGROUNDS
 chmod +x get-backgrounds.sh
 ./get-backgrounds.sh
+
 
 
 ## APPLICATIONS
@@ -46,6 +51,8 @@ else
     echo "Skipping VimPlug installation and Neovim update."
 fi
 
+
+
 ## PACKAGES
 # Check if the packages-list file exists
 if [[ ! -f packages-list ]]; then
@@ -68,7 +75,6 @@ if [[ "$response" =~ ^[Yy](es)?$ ]]; then
 else
     echo "Skipping package installation."
 fi
-
 
 
 
@@ -103,6 +109,7 @@ else
 fi
 
 
+
 ## HACK TOOLS
 read -p "Do you want to install hacking tools? (y/n): " user_input
 if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
@@ -111,6 +118,7 @@ if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
 else
     echo "Skipping the hackpack installation."
 fi
+
 
 
 ## i3wm
@@ -136,6 +144,7 @@ else
 fi
 
 
+
 ## FONTS
 read -p "Do you want to install Nerd Fonts? (y/n): " nerd_fonts
 if [[ "$nerd_fonts" =~ ^[Yy](es)?$ ]]; then
@@ -145,14 +154,24 @@ else
     echo "Skipping Nerd Fonts installation."
 fi
 
+
+
 ### FILES & DIRECTORIES
 ## CONFIG
 cp -r .config/ ~/.config
 ## LOCAL
 cp -r .local/ ~/.local
 
+
+
 ## FINAL UPDATE
 echo "Updating and cleaning up..."
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
+
+
+
+
+
+
 
 echo "Post install complete."
