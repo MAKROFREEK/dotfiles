@@ -77,6 +77,12 @@ else
     echo "Skipping package installation."
 fi
 
+
+## TERMINAL
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 100
+sudo update-alternatives --config x-terminal-emulator
+
+
 ## Desktop Gaming
 read -p "Will you be gaming with this setup? (y/n): " user_input
 if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
