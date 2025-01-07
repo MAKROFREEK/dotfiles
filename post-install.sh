@@ -71,8 +71,8 @@ fi
 
 
 ## TERMINAL
-sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 100
-sudo update-alternatives --config x-terminal-emulator
+# sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 100
+# sudo update-alternatives --config x-terminal-emulator
 
 
 ## Desktop Gaming
