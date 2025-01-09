@@ -86,7 +86,7 @@ if [[ "$response" =~ ^[Yy](es)?$ ]]; then
 
     # Section for Obsidian
     wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb
-    sudo dpkg -i obsidian_1.7.7_amd64.deb || sudo apt-get install -f -y
+    sudo dpkg -i obsidian_1.7.7_amd64.deb
     rm obsidian_1.7.7_amd64.deb
     
     echo "All packages processed."
