@@ -71,6 +71,24 @@ if [[ "$response" =~ ^[Yy](es)?$ ]]; then
             }
         fi
     done < packages-list
+
+    
+    # Section for Discord (Vesktop)
+    wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
+    sudo dpkg -i vesktop.deb || sudo apt-get install -f -y
+    rm vesktop.deb
+
+    # Section for Spotify
+    curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo tee /etc/apt/trusted.gpg.d/spotify.gpg > /dev/null
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt-get update
+    sudo apt-get install spotify-client -y
+
+    # Section for Obsidian
+    wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.7.7/obsidian_1.7.7_amd64.deb
+    sudo dpkg -i obsidian_1.7.7_amd64.deb || sudo apt-get install -f -y
+    rm obsidian_1.7.7_amd64.deb
+    
     echo "All packages processed."
 else
     echo "Skipping package installation."
@@ -82,12 +100,6 @@ fi
 read -p "Will you be gaming with this setup? (y/n): " user_input
 if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
     echo "Setting up gaming tools..."
-    # Section for Spotify
-    curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo tee /etc/apt/trusted.gpg.d/spotify.gpg > /dev/null
-    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-    sudo apt-get update
-    sudo apt-get install spotify-client -y
-
     # Section for Steam
     wget -O steam.deb https://cdn.akamai.steamstatic.com/client/installer/steam.deb
     sudo dpkg -i steam.deb || sudo apt-get install -f -y
@@ -99,10 +111,6 @@ if [[ "$user_input" =~ ^[Yy](es)?$ ]]; then
     tar -xf GE-Proton9-22.tar.gz -C ~/.steam/root/compatibilitytools.d/
     rm GE-Proton9-22.tar.gz
 
-    # Section for Discord (Vesktop)
-    wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
-    sudo dpkg -i vesktop.deb || sudo apt-get install -f -y
-    rm vesktop.deb
     
 else
     echo "Skipping gaming apps."
