@@ -71,7 +71,7 @@ if [[ "$response" =~ ^[Yy](es)?$ ]]; then
             }
         fi
     done < packages-list
-
+    echo "Packages in package list installed."
     
     # Section for Discord (Vesktop)
     wget -O vesktop.deb https://vencord.dev/download/vesktop/amd64/deb
