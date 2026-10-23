@@ -28,6 +28,13 @@ Plug 'mg979/vim-visual-multi'  " Multiple cursors, QoL | Yes ctrl + v, shift + i
 Plug 'tpope/vim-surround'      " Highlights parentheses etc, Visual
 Plug 'vim-fuzzbox/fuzzbox.vim' " Fuzzy finder file, Workflow
 
+" --- Themes ---
+"  Disabled by default
+" Plug 'dracula/vim',
+" Plug 'crusoexia/vim-monokai',
+" Plug 'sainnhe/everforest',
+
+
 call plug#end()
 
 " --- Key Mappings ---
@@ -35,5 +42,5 @@ nnoremap <C-f> :FuzzyFiles<CR>
 
 " --- Appearance Overrides ---
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-
+" colorscheme dracula
 
