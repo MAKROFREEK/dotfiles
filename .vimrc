@@ -41,6 +41,12 @@ call plug#end()
 nnoremap <C-f> :FuzzyFiles<CR>
 
 " --- Appearance Overrides ---
-autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-" colorscheme dracula
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE " set background to use terminals bg color
+autocmd ColorScheme * highlight LineNr ctermbg=NONE guibg=NONE " set background to use terminals bg color 
+autocmd ColorScheme * highlight SignColumn ctermbg=NONE guibg=NONE " set background to use terminals bg color
+autocmd ColorScheme * highlight CursorLineNr ctermfg=White guifg=White " Active number line color
+autocmd ColorScheme * highlight StatusLine ctermbg=NONE ctermfg=Gray guibg=NONE guifg=Gray
+autocmd ColorScheme * highlight StatusLineNC ctermbg=NONE ctermfg=Gray guibg=NONE guifg=Gray
+
+colorscheme monokai
 
