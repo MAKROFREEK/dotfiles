@@ -48,6 +48,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# Shorthands
+alias pack="npx repomix --output SUMMARY.md"
+
 # ==========================================
 # 4. EXPORTS & ENVIRONMENT
 # ==========================================
