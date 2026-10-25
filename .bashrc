@@ -49,7 +49,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Shorthands
-alias pack="npx repomix --output SUMMARY.md"
+alias pack='npx repomix --output SUMMARY.md --ignore "target/**"'
 
 # ==========================================
 # 4. EXPORTS & ENVIRONMENT
@@ -57,7 +57,7 @@ alias pack="npx repomix --output SUMMARY.md"
 export EDITOR='vim'
 export VISUAL='vim'
 export SUDO_EDITOR='vim'
-export MANPAGER="vim -M +MANPAGER -"
+export MANPAGER='vim -M +MANPAGER -'
 export BROWSER='w3m'
 
 # History Tweaks (Great for completion & navigation)
