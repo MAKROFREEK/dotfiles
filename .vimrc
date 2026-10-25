@@ -48,5 +48,5 @@ autocmd ColorScheme * highlight CursorLineNr ctermfg=White guifg=White " Active 
 autocmd ColorScheme * highlight StatusLine ctermbg=NONE ctermfg=Gray guibg=NONE guifg=Gray
 autocmd ColorScheme * highlight StatusLineNC ctermbg=NONE ctermfg=Gray guibg=NONE guifg=Gray
 
-colorscheme monokai
+" colorscheme monokai
 
