@@ -61,7 +61,7 @@ export EDITOR='vim'
 export VISUAL='vim'
 export SUDO_EDITOR='vim'
 export MANPAGER='vim -M +MANPAGER -'
-# export BROWSER='w3m'
+export BROWSER='w3m'
 
 # History Tweaks (Great for completion & navigation)
 HISTCONTROL=ignoredups:erasedups  # No duplicate entries
