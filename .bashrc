@@ -50,6 +50,9 @@ alias mv='mv -i'
 
 # Shorthands
 alias pack='npx repomix --output SUMMARY.md --ignore "target/**"'
+alias todo='vim ~/Documents/Obsidian/TODO.md'
+alias proj='cd ~/Documents/Obsidian/1_projects/'
+
 
 # ==========================================
 # 4. EXPORTS & ENVIRONMENT
@@ -58,7 +61,7 @@ export EDITOR='vim'
 export VISUAL='vim'
 export SUDO_EDITOR='vim'
 export MANPAGER='vim -M +MANPAGER -'
-export BROWSER='w3m'
+# export BROWSER='w3m'
 
 # History Tweaks (Great for completion & navigation)
 HISTCONTROL=ignoredups:erasedups  # No duplicate entries
