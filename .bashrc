@@ -40,7 +40,7 @@ alias diff='diff --color=auto'
 
 # Shortcuts & Utilities
 alias fetch='fastfetch'
-alias please='sudo !!'
+alias please='sudo $(history -p !!)'
 # alias vimide='vim -u ~/.ide-vimrc' # An experiment really
 
 # Safety net (interactive prompts)
@@ -61,7 +61,7 @@ export EDITOR='vim'
 export VISUAL='vim'
 export SUDO_EDITOR='vim'
 export MANPAGER='vim -M +MANPAGER -'
-export BROWSER='w3m'
+# export BROWSER='w3m'
 
 # History Tweaks (Great for completion & navigation)
 HISTCONTROL=ignoredups:erasedups  # No duplicate entries
@@ -74,4 +74,5 @@ shopt -s histappend               # Append to history, don't overwrite
 # ==========================================
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
+
 
