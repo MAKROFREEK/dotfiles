@@ -50,9 +50,15 @@ alias mv='mv -i'
 
 # Shorthands
 alias pack='npx repomix --output SUMMARY.md --ignore "target/**"'
-alias todo='vim ~/Documents/Obsidian/TODO.md'
-alias proj='cd ~/Documents/Obsidian/1_projects/'
+alias todo='vim ~/Documents/Vault/TODO.md'
+alias scratchpad='vim ~/Documents/Obsidian/SCRATCHPAD.md'
+alias proj='cd ~/Documents/Vault/1_projects/'
 
+# Memes
+alias parrots='curl parrot.live'
+alias nyan='curl ascii.live/nyan'
+alias rickroll='curl ascii.live/rick'
+alias fishes='mpv ~/Documents/Vault/3_resources/ambience/goldfish.mp3 & asciiquarium; kill $!'
 
 # ==========================================
 # 4. EXPORTS & ENVIRONMENT
