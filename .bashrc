@@ -51,7 +51,7 @@ alias mv='mv -i'
 # Shorthands
 alias pack='npx repomix --output SUMMARY.md --ignore "target/**"'
 alias todo='vim ~/Documents/Vault/TODO.md'
-alias scratchpad='vim ~/Documents/Obsidian/SCRATCHPAD.md'
+alias scratchpad='vim ~/Documents/Vault/SCRATCHPAD.md'
 alias proj='cd ~/Documents/Vault/1_projects/'
 
 # Memes
