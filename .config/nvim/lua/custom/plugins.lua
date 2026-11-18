@@ -1,16 +1,29 @@
 require("lazy").setup({
   -- Visual & Editing
-  { "mg979/vim-visual-multi" },
-  { "tpope/vim-surround" },
-  { "tpope/vim-commentary" },
-
-  -- Fuzzy Finder
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
+    config = function()
+      local mc = require("multicursor-nvim")
+      mc.setup()
+      -- Example VSCode-like Ctrl+n mapping:
+      vim.keymap.set({ "n", "x" }, "<C-n>", function() mc.matchAddCursor(1) end)
+    end,
   },
 
-  -- LSP, Mason & Completion
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    opts = {},
+  },
+  -- Fuzzy Finder (lazy: loads on first <C-f> press)
+  {
+    "ibhagwan/fzf-lua",
+    lazy = true,
+    keys = { { "<C-f>", "<cmd>FzfLua files<cr>", desc = "Fuzzy find files" } },
+  },
+  -- LSP, Mason, DAP, Formatting, Linting, etc.
   { "williamboman/mason.nvim", config = true },
   { "neovim/nvim-lspconfig" },
   {
@@ -19,76 +32,132 @@ require("lazy").setup({
     config = function()
       local lspconfig = require("lspconfig")
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "rust_analyzer" },
+        ensure_installed = { "lua_ls" },
         handlers = {
           function(server_name)
+            -- rustaceanvim owns rust_analyzer; don't double-setup
+            if server_name == "rust_analyzer" then return end
             lspconfig[server_name].setup({})
           end,
         },
       })
     end,
   },
-
-  -- Snippet Engine & Pre-built Snippets
   {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end,
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+    ft = "rust",
+    config = function ()
+      local mason_registry = require('mason-registry')
+      local codelldb = mason_registry.get_package("codelldb")
+      local extension_path = codelldb:get_install_path() .. "/extension/"
+      local codelldb_path = extension_path .. "adapter/codelldb"
+      -- Linux: liblldb.so (the .dylib was macOS-only)
+      local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+
+      -- Set vim.g BEFORE requiring rustaceanvim.config — the plugin caches its
+      -- config at require time; setting after is silently ignored
+      vim.g.rustaceanvim = {}
+
+      -- nvim 0.12: lspconfig's rust_analyzer definition overrides rustaceanvim's
+      -- server.settings at merge time, so set check via vim.lsp.config instead
+      -- (definitions are deep-merged by vim.lsp.config)
+      vim.lsp.config("rust_analyzer", {
+        settings = {
+          ["rust-analyzer"] = {
+            -- Clippy lints as diagnostics after save
+            check = {
+              command = "clippy",
+              extraArgs = { "--no-deps" },
+            },
+            checkOnSave = true,
+          },
+        },
+      })
+
+      local cfg = require('rustaceanvim.config')
+      vim.g.rustaceanvim.dap = {
+        adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+      }
+    end
   },
 
-  -- Completion Engine
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
-    },
+    'mfussenegger/nvim-dap',
     config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
+			local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+		end,
+  },
 
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+    {
+    'rcarriga/nvim-dap-ui', 
+    dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+    config = function()
+			require("dapui").setup()
+		end,
+  },
+
+  {
+	  'rust-lang/rust.vim',
+	  ft = "rust",
+	  init = function()
+		  vim.g.rustfmt_autosave = 1
+	  end
+  },
+
+  -- Helps with crates versions
+    {
+    'saecki/crates.nvim',
+    ft = {"toml"},
+    config = function()
+      require("crates").setup {
+        -- In-process LSP: blink picks these completions up via its 'lsp' source
+        lsp = {
+          enabled = true,
+          completion = true,
         },
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
-        mapping = cmp.mapping.preset.insert({
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        }),
-      })
+      }
+    end
+  },
+
+  -- Completion Engine (native snippet engine, friendly-snippets loaded directly)
+  {
+    'saghen/blink.cmp',
+    dependencies = {
+      'saghen/blink.lib',
+      'rafamadriz/friendly-snippets',
+    },
+    build = function()
+      require('blink.cmp').build():pwait()
     end,
+    opts = {
+      keymap = {
+        preset = 'enter',
+        ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+      },
+      sources = {
+        default = { 'snippets', 'lsp', 'path', 'buffer' },
+      },
+      completion = {
+        documentation = { auto_show = true },
+      },
+      signature = { enabled = true },
+      fuzzy = { implementation = 'rust' },
+    },
   },
 
   -- UI & Formatting
@@ -103,32 +172,11 @@ require("lazy").setup({
       require("which-key").setup()
     end,
   },
-  { "mhartington/formatter.nvim" },
-
-  -- Vim Wiki / Obsidian 
+  -- Corner Notifications
   {
-    "epwalsh/obsidian.nvim",
-    version = "*",
-    lazy = true,
-    ft = "markdown",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    opts = {
-      workspaces = {
-        {
-          name = "vault",
-          path = "~/Documents/Vault",
-        },
-      },
-      templates = {
-        subdir = "5_templates",
-        date_format = "%Y-%m-%d",
-        time_format = "%H:%M",
-      },
-      notes_subdir = "1_projects",
-      new_notes_location = "note_id",
-    },
+  "j-hui/fidget.nvim",
+  opts = {
+    -- options
   },
+},
 })
