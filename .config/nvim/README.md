@@ -47,7 +47,7 @@ lua/custom/
 ## Rust workflow
 
 - Save → format (rustfmt) + organize imports + clippy diagnostics
-- Inlay hints on by default, buffer-local maps in `.rs` files:
+- Buffer-local LSP maps in `.rs` files:
 
 | Key | Action |
 |---|---|
@@ -55,7 +55,6 @@ lua/custom/
 | `<leader>ca` | code actions (apply clippy fixes) |
 | `gr` | references |
 | `<leader>rn` | rename |
-| `<leader>ih` | toggle inlay hints |
 
 `<leader>` = default (space).
 
